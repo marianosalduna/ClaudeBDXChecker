@@ -1,0 +1,66 @@
+# BDX Integrity Checker — Sample Configuration File
+# Copy this file and adjust for your bordereau format.
+
+# ── File Settings ─────────────────────────────────────────────────────────
+file:
+  max_upload_size_mb: 500
+  supported_formats:
+    - xlsx
+  default_sheet: "Sheet1"
+
+# ── Column Mapping ────────────────────────────────────────────────────────
+# Specify the exact column header names in your BDX file.
+# If left blank, the tool will use automatic header detection.
+
+mapping:
+  # Primary key fields — used to identify each unique policy record
+  key_fields:
+    - "Policy Number"
+    - "Certificate Number"
+    # - "Claim Number"    # Uncomment if using claims BDX
+    # - "Record ID"
+
+  # Financial fields — numeric columns to sum and validate
+  financial_fields:
+    - "Net Premium"
+    - "Commission"
+    - "Tax"
+    - "Gross Premium"
+    - "Net Due"
+    # - "Due to Brokers"
+    # - "Due to Insurer"
+
+# ── Validation Thresholds ─────────────────────────────────────────────────
+validation:
+  # Maximum acceptable duplicate rate (%)
+  max_duplicate_pct: 5.0
+
+  # Maximum acceptable blank key rate (%)
+  max_blank_key_pct: 0.0
+
+  # Maximum acceptable blank financial rate (%)
+  max_blank_financial_pct: 2.0
+
+  # Flag if sort corruption simulation exceeds this threshold (%)
+  sort_corruption_alert_pct: 10.0
+
+# ── Risk Thresholds ───────────────────────────────────────────────────────
+risk:
+  # Minimum integrity score to pass review
+  minimum_pass_score: 80
+
+  # Risk levels that trigger automatic rejection
+  rejection_levels:
+    - CRITICAL
+
+# ── Report Settings ───────────────────────────────────────────────────────
+reporting:
+  # Include sample rows in reports
+  include_sample_data: true
+  max_sample_rows: 10
+
+  # Report title prefix
+  title_prefix: "BDX Integrity Audit"
+
+  # Organisation name for report header
+  organisation: "Your Organisation Name"
